@@ -15,9 +15,6 @@ import java.io.IOException;
 public class Sort {
     static String[] strArray;
     static double array_int;
-    static double length;
-    static String input;
-    static boolean tr;
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
         String file =  "C:\\fin.txt";
@@ -69,7 +66,7 @@ public class Sort {
         return doubleArrayMain;
     }
 
-    //функції сортування масиву
+   
     static void sort(double[] array, int left, int right) {
         double tmp = array[left];
         array[left] = array[right];
@@ -91,29 +88,24 @@ public class Sort {
         myQSort(array, last + 1, right);
     }
     public static String read(String fileName) throws FileNotFoundException {
-        //Этот спец. объект для построения строки
         File file = new File(fileName);
-        StringBuilder sb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         try {
-            //Объект для чтения файла в буфер
             BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
             try {
-                //В цикле построчно считываем файл
                 String s;
                 while ((s = in.readLine()) != null) {
-                    sb.append(s);
-                    sb.append("\n");
+                    stringBuilder.append(s);
+                    stringBuilder.append("\n");
                 }
             } finally {
-                //Также не забываем закрыть файл
                 in.close();
             }
         } catch(IOException e) {
             throw new RuntimeException(e);
         }
 
-        //Возвращаем полученный текст с файла
-        return sb.toString();
+        return stringBuilder.toString();
     }
 
 }
