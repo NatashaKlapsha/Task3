@@ -1,0 +1,9 @@
+# Task3
+package Qsort;
+
+/**
+ * Created by Natalia on 04.04.2015.
+ */
+public interface Sorting {
+    public void sort(double [] array);
+}
