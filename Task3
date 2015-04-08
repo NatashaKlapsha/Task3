@@ -20,7 +20,7 @@ public class Sort {
 
         try {
             for (int g = 0; g < array.length; g++) {
-                if ((array[g] > Integer.MAX_VALUE) && (array[g] < Integer.MIN_VALUE)) {
+                if (!(array[g] > Integer.MAX_VALUE) && (array[g] < Integer.MIN_VALUE)) {
                     if (!(args[0].equals(" "))) {
                         if (args[0].equals("shift")) {
                             System.out.println("shift");
