@@ -1,59 +1,55 @@
-# Task3
 package Qsort;
-import java.util.Arrays;
 
 import java.io.*;
-import java.lang.String;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by Natalia on 28.03.2015.
  */
 public class Sort {
-    static String[] strArray;
-    static double array_int;
+    public static String[] strArray;
+    public static double array_int;
+
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
-        String file =  "C:\\fin.txt";
+        String file = "C:\\fin.txt";
         args[1] = file;
         Sorting sorting = null;
-        double[]Array = valueArray(read(file));
-        System.out.println(Arrays.toString(Array));
-        if (!(args[0].equals(" "))) {
-            if (args[0].equals("shift")) {
-                System.out.println("shift");
-                sorting = new ShiftSort();
-            } else if (args[0].equals("bubble")) {
-                sorting = new BubbleSort();
-                System.out.println("bubble");
-            } else if (args[0].equals("quick")) {
-                //Сортування за допомогою фунції
-                System.out.println("quick");
-                System.out.println("Array is sorting!--->>");
-                myQSort(Array, 0, Array.length-1);
-            }
-            sorting.sort(Array);
-            try {//перевірка граничних значень чисел
-                for (int g = 0; g < Array.length; g++) {
-                    if ((Array[g] > Integer.MAX_VALUE) && (Array[g] < Integer.MIN_VALUE)) {
+        double[] array = valueArray(read(file));
+        System.out.println(Arrays.toString(array));
+
+        try {
+            for (int g = 0; g < array.length; g++) {
+                if ((array[g] > Integer.MAX_VALUE) && (array[g] < Integer.MIN_VALUE)) {
+                    if (!(args[0].equals(" "))) {
+                        if (args[0].equals("shift")) {
+                            System.out.println("shift");
+                            sorting = new ShiftSort();
+                        } else if (args[0].equals("bubble")) {
+                            sorting = new BubbleSort();
+                            System.out.println("bubble");
+                        } else if (args[0].equals("quick")) {
+                            //Сортування за допомогою фунції
+                            System.out.println("quick");
+                            System.out.println("Array is sorting!--->>");
+                            myQSort(array, 0, array.length - 1);
+                        }
+                        sorting.sort(array);
                     }
                 }
-            } catch (Exception e) {
-                System.err.println("Error! Enter new value!");
             }
-            System.out.println(Arrays.toString(Array));
+        } catch (Exception e) {
+            System.err.println("Error! Enter new value in file!");
         }
+        System.out.println(Arrays.toString(array));
     }
 
 
     public static double[] valueArray(String str) {
         int temp = 0;
         double array_int;
-        String[] strValue=str.split("\n") ;
-        double[]doubleArray = new double[strValue.length];
+        String[] strValue = str.split("\n");
+        double[] doubleArray = new double[strValue.length];
         for (int i = 0; i < doubleArray.length; i++) {
             array_int = Double.parseDouble(strValue[i]);
             doubleArray[temp] = array_int;
@@ -66,46 +62,46 @@ public class Sort {
         return doubleArrayMain;
     }
 
-   
-    static void sort(double[] array, int left, int right) {
+    //функції сортування масиву
+    public static void sort(double[] array, int left, int right) {
         double tmp = array[left];
         array[left] = array[right];
         array[right] = tmp;
     }
 
-    static void myQSort(double[] array, int left, int right) {
+    public static void myQSort(double[] array, int left, int right) {
         if (left >= right)
             return;
-
         sort(array, left, (left + right) / 2);
         int last = left;
-        for (int i = last + 1; i <= right; ++i)
-            if (array[i] >= array[left])
+        for (int i = last + 1; i <= right; ++i) {
+            if (array[i] >= array[left]) {
                 sort(array, ++last, i);
-
+            }
+        }
         sort(array, left, last);
         myQSort(array, left, last - 1);
         myQSort(array, last + 1, right);
     }
+
     public static String read(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         try {
-            BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
+            BufferedReader in = new BufferedReader(new FileReader(file.getAbsoluteFile()));
             try {
                 String s;
                 while ((s = in.readLine()) != null) {
-                    stringBuilder.append(s);
-                    stringBuilder.append("\n");
+                    builder.append(s);
+                    builder.append("\n");
                 }
             } finally {
                 in.close();
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return stringBuilder.toString();
+        return builder.toString();
     }
 
 }
